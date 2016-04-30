@@ -7,9 +7,10 @@ module V1
           http_codes: {
               :'200' => "메시지 트리거링 성공",
               :'402' => "메시지 트리거링 실패"
-          }
+          }, entity: Entities::ResponseFormat
         }
         params do
+          requires :token, desc: "유저 토큰", type: String
           requires :channel, desc: "채널 이름", type: String
           requires :event_name, desc: "이벤트 이름", type: String
           requires :message, desc: "메시지 내용", type: String
@@ -19,7 +20,8 @@ module V1
           @pusher.trigger(params[:channel], params[:event_name], {
                                                   message: params[:message]
                                               });
-          _response(200,)
+
+          _response($_success,"메시지 트리거링 성공",200)
         end
       end
     end
