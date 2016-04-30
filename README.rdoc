@@ -8,3 +8,5 @@
     http://[server_ip:port]/api/client/docs
 * Current HOST SERVER IP:PORT
     125.209.199.214:3000
+* 개인정보 처리방침
+    http://[server_ip:port]/privacy_security
