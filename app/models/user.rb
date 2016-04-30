@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   has_one :session
 
-  def login(user)
-    @user = User.find(user)
+  def login(uid)
+    @user = User.find_by_uid(uid)
     if @user
       [1,@user]
     else

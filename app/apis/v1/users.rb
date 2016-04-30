@@ -38,7 +38,7 @@ module V1
         requires :uid, desc: "FACEBOOK 유저 UID", type: Integer
       end
       post :login do
-        result = User.login(params.to_hash)
+        result = User.login(params[:uid])
         if result[0] == 1
           _response($_success,"로그인 성공",200,{user:result[1]})
         else
