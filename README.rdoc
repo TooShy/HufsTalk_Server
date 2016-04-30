@@ -5,4 +5,6 @@
 * 훕스톡 클라이언트를 위한 RESTFUL API 제공
 
 * TO ACCESS RESTFUL API
-    http://[server_ip]/api/client/docs
+    http://[server_ip:port]/api/client/docs
+* Current HOST SERVER IP:PORT
+    125.209.199.214:3000
