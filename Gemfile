@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '4.2.3'
 gem 'mysql2'
@@ -7,7 +7,6 @@ gem 'grape-entity'
 gem 'grape-swagger'
 gem 'unicorn'
 gem 'pusher'
-gem 'redis-rails'
 
 
 group :development do
