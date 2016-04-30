@@ -6,6 +6,9 @@ gem 'grape'
 gem 'grape-entity'
 gem 'grape-swagger'
 gem 'unicorn'
+gem 'pusher'
+gem 'redis-rails'
+
 
 group :development do
   gem 'byebug'
