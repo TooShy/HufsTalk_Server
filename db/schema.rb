@@ -27,12 +27,11 @@ ActiveRecord::Schema.define(version: 20160430022410) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.integer  "uid",        limit: 4
-    t.string   "email",      limit: 255
+    t.integer  "uid",        limit: 8
     t.boolean  "gender"
     t.integer  "session_id", limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
 end

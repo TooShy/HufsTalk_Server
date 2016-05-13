@@ -3,7 +3,7 @@ require 'digest'
 class User < ActiveRecord::Base
   has_one :session
 
-  validates_uniqueness_of :uid, :email
+  validates_uniqueness_of :uid
 
 
   def self.login(uid)

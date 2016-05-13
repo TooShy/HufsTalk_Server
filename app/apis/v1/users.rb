@@ -13,7 +13,8 @@ module V1
 
       params do
         requires :uid, desc: "FACEBOOK 유저 고유 ID", type: Integer
-        requires :email, desc: "FACEBOOK 유저 이메일", type: String
+        # 이메일 제외
+        # requires :email, desc: "FACEBOOK 유저 이메일", type: String
         requires :gender, desc: "성별(true: 남성, false: 여성)", type: Boolean
       end
 
