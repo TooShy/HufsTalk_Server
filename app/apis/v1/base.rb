@@ -3,5 +3,6 @@ module V1
     version 'v1', using: :header, vendor: 'Hufstalk', format: :json, cascade: true
     mount V1::Chat
     mount V1::Users
+    mount V1::Topics
   end
 end

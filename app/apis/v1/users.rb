@@ -46,25 +46,6 @@ module V1
           _response($_failed,result[1],404)
         end
       end
-
-    #
-    #   desc "유저 정보 가져오기",{
-    #       http_codes: {
-    #           :'200' => "성공",
-    #           :'404' => "유저를 찾을 수 없습니다."
-    #       },
-    #       entity: Entities::UserResponse
-    #   }
-    #   params do
-    #     requires :token, desc: "로그인 토큰", type: String
-    #   end
-    #   get do
-    #     current_user do
-    #       _response($_success,"성공",200,@user_attr)
-    #     end
-    #   end
-
-
     end
   end
 end

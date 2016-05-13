@@ -25,7 +25,6 @@ module SharedHelpers extend Grape::API::Helpers
     session = Session.find_by_token(params[:token])
     if session
       @current_user = User.find(session.user_id)
-      @user_attr = @current_user.attributes.except('password', 'created_at', 'updated_at')
       yield
     else
       _response($_failed,"유저를 찾을 수 없습니다",404)

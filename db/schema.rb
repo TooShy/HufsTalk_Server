@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160430022410) do
+ActiveRecord::Schema.define(version: 20160513055141) do
 
   create_table "sessions", force: :cascade do |t|
     t.string   "token",      limit: 255
@@ -33,5 +33,13 @@ ActiveRecord::Schema.define(version: 20160430022410) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end
+
+  create_table "users_topics", force: :cascade do |t|
+    t.integer "user_id",  limit: 4
+    t.integer "topic_id", limit: 4
+  end
+
+  add_index "users_topics", ["topic_id"], name: "index_users_topics_on_topic_id", using: :btree
+  add_index "users_topics", ["user_id"], name: "index_users_topics_on_user_id", using: :btree
 
 end
