@@ -31,4 +31,5 @@ class User < ActiveRecord::Base
       [-1,"해당 유저의 UID를 찾을 수 없습니다."]
     end
   end
+
 end

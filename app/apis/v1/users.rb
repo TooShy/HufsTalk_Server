@@ -41,9 +41,9 @@ module V1
       post :login do
         result = User.login(params[:uid])
         if result[0] == 1
-          _response($_success,"로그인 성공",200,{user:result[1], session: result[2]})
+          _response $_success,"로그인 성공",200,{user:result[1], session: result[2]}
         else
-          _response($_failed,result[1],404)
+          _response $_failed,result[1],404
         end
       end
     end

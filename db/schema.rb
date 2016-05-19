@@ -26,20 +26,25 @@ ActiveRecord::Schema.define(version: 20160513055141) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.integer  "uid",        limit: 8
-    t.boolean  "gender"
-    t.integer  "session_id", limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
+  add_index "topics", ["topic_name"], name: "index_topics_on_topic_name", using: :btree
 
-  create_table "users_topics", force: :cascade do |t|
+  create_table "topics_users", force: :cascade do |t|
     t.integer "user_id",  limit: 4
     t.integer "topic_id", limit: 4
   end
 
-  add_index "users_topics", ["topic_id"], name: "index_users_topics_on_topic_id", using: :btree
-  add_index "users_topics", ["user_id"], name: "index_users_topics_on_user_id", using: :btree
+  add_index "topics_users", ["topic_id"], name: "index_topics_users_on_topic_id", using: :btree
+  add_index "topics_users", ["user_id"], name: "index_topics_users_on_user_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.integer  "uid",           limit: 8
+    t.boolean  "gender"
+    t.integer  "ban_count",     limit: 4, default: 0
+    t.boolean  "is_banned"
+    t.boolean  "prefer_gender",           default: true
+    t.integer  "session_id",    limit: 4
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
 
 end

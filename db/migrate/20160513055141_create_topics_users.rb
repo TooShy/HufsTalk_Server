@@ -1,6 +1,6 @@
-class CreateUsersTopics < ActiveRecord::Migration
+class CreateTopicsUsers < ActiveRecord::Migration
   def change
-    create_table :users_topics do |t|
+    create_table :topics_users do |t|
       t.belongs_to :user, index: true
       t.belongs_to :topic, index: true
     end
