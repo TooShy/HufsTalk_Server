@@ -3,6 +3,7 @@ module SharedHelpers extend Grape::API::Helpers
 
   # helpers
   def _response(status,message,code,data = {})
+    status 200
     {status: status, message: message, code: code, data: data}
   end
 
