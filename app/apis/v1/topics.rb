@@ -16,7 +16,7 @@ module V1
         if Topic.all.empty?
           _response $_failed, "토픽리스트가 존재하지 않습니다", 404
         else
-          _response $_success, "전체 토픽 조회 완료", 200, {topic_list: @current_user.topics}
+          _response $_success, "전체 토픽 조회 완료", 200, {topic_list: Topic.all}
         end
       end
 
@@ -63,7 +63,6 @@ module V1
           end
         end
       end
-
     end
   end
 end
