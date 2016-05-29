@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160513055141) do
+ActiveRecord::Schema.define(version: 20160529020919) do
+
+  create_table "chat_sessions", force: :cascade do |t|
+    t.string   "channel_name",  limit: 255
+    t.string   "filter_string", limit: 255, default: ""
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
 
   create_table "sessions", force: :cascade do |t|
     t.string   "token",      limit: 255
@@ -37,14 +44,15 @@ ActiveRecord::Schema.define(version: 20160513055141) do
   add_index "topics_users", ["user_id"], name: "index_topics_users_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.integer  "uid",           limit: 8
+    t.integer  "uid",             limit: 8
     t.boolean  "gender"
-    t.integer  "ban_count",     limit: 4, default: 0
-    t.boolean  "is_banned"
-    t.boolean  "prefer_gender",           default: true
-    t.integer  "session_id",    limit: 4
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.integer  "ban_count",       limit: 4,   default: 0
+    t.boolean  "is_banned",                   default: false
+    t.boolean  "prefer_gender",               default: true
+    t.string   "filter_string",   limit: 255, default: ""
+    t.integer  "chat_session_id", limit: 4
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
   end
 
 end

@@ -8,24 +8,26 @@ module V1
       desc "현재 전체 토픽 리스트 가져오기", {
           http_codes: {
               :'200' => "응답 완료",
-              :'401' => "찾을 수 없는 세션 토큰",
-              :'404' => "토픽 리스트가 없습니다"
-          }
+              :'402' => "토픽 리스트가 없습니다"
+          },
+          entity: Entities::ResponseFormat
       }
       get :total_topic_list do
         if Topic.all.empty?
           _response $_failed, "토픽리스트가 존재하지 않습니다", 404
         else
-          _response $_success, "전체 토픽 조회 완료", 200, {topic_list: Topic.all}
+          _response $_success, "전체 토픽 조회 완료", 200, {topic_list: Topic.all.sort_by { |t| t.count}}
         end
       end
 
       desc "유저 토픽 리스트 조회", {
           http_codes: {
               :'200' => "응답 완료",
-              :'401' => "찾을 수 없는 세션 토큰",
-              :'404' => "유저 토픽 리스트가 존재하지 않습니다."
-          }
+              :'404' => "찾을 수 없는 세션 토큰",
+              :'402' => "유저 토픽 리스트가 존재하지 않습니다.",
+              :'401' => "밴 당한 유저"
+          },
+          entity: Entities::ResponseFormat
       }
       params do
         requires :token, desc: "유저 세션 토큰", type: String
@@ -33,19 +35,20 @@ module V1
       get :user_topic_list do
         current_user do
           if @current_user.topics.empty?
-            _response $_failed,"유저 토픽 리스트가 존재하지 않습니다",401
+            _response $_failed,"유저 토픽 리스트가 존재하지 않습니다",402
           else
             _response $_success, "유저 토픽 조회 완료", 200, {topic_list: @current_user.topics}
           end
-
         end
       end
 
       desc "유저 토픽 리스트 세팅하기", {
           http_codes: {
               :'200' => "응답 완료",
-              :'401' => "찾을 수 없는 세션 토큰"
-          }
+              :'404' => "찾을 수 없는 세션 토큰",
+              :'401' => "밴 당한 유저"
+          },
+          entity: Entities::ResponseFormat
       }
       params do
         requires :token, desc: "유저 세션 토큰", type: String

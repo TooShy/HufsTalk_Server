@@ -17,5 +17,4 @@ class Topic < ActiveRecord::Base
   def count
     self.users.count
   end
-
 end

@@ -8,7 +8,9 @@ module V1
         desc "채팅 트리거",{
           http_codes: {
               :'200' => "메시지 트리거링 성공",
-              :'402' => "메시지 트리거링 실패"
+              :'404' => "세션 토큰을 찾을 수 없습니다",
+              :'402' => "금지어 입력",
+              :'401' => "밴 당한 유저"
           }, entity: Entities::ResponseFormat
         }
         params do
@@ -18,6 +20,17 @@ module V1
         end
         post do
           current_user do
+            filter_string = @current_user.chat_session.filter_string.split(',')
+            filter_string.each do |s|
+              if params[:message].include? s
+                @current_user.ban_count = @current_user.ban_count + 1
+                @current_user.save
+                @pusher.trigger(params[:channel], 'ban', {
+                    token: params[:token]
+                });
+                return _response($_failed,"금지어 입력" ,402)
+              end
+            end
             @pusher = pusher
             @pusher.trigger(params[:channel], 'chat', {
                                                 message: params[:message],
@@ -31,7 +44,9 @@ module V1
         desc "채팅 채널 입장/퇴장",{
             http_codes: {
                 :'200' => "트리거링 성공",
-                :'402' => "트리거링 실패"
+                :'404' => "세션 토큰을 찾을 수 없습니다",
+                :'402' => "트리거링 실패",
+                :'401' => "밴 당한 유저"
             }, entity: Entities::ResponseFormat
         }
         params do
@@ -57,10 +72,13 @@ module V1
         end
 
         desc "유저 매칭 요청",{
-                              http_codes: {
-                                  :'200' => "매칭 요청 성공"
-                              }, entity: Entities::ResponseFormat
-                          }
+            http_codes: {
+              :'200' => "매칭 요청 성공",
+              :'201' => "대기큐 진입",
+              :'404' => "세션 토큰을 찾을 수 없습니다",
+              :'401' => "밴 당한 유저"
+            }, entity: Entities::ResponseFormat
+        }
         params do
           requires :token, desc: "유저 토큰", type: String
         end

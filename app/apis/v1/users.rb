@@ -46,6 +46,27 @@ module V1
           _response $_failed,result[1],404
         end
       end
+
+      desc "금지어 설정",{
+          http_codes: {
+              :'200' => "금지어 설정 성공",
+              :'404' => "유저를 찾을 수 없음",
+              :'401' => "밴 당한 유저"
+          },
+          entity: Entities::ResponseFormat
+      }
+      params do
+        requires :token, desc: "세션 토큰", type: String
+        requires :filter_string, desc: "필터 문자열(split_by: ',')", type:String
+      end
+      get :set_filter do
+        current_user do
+          @current_user.filter_string = params[:filter_string]
+          if @current_user.save
+            _response $_success,"금지어 설정 성공",200,{user:@current_user}
+          end
+        end
+      end
     end
   end
 end

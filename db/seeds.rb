@@ -7,3 +7,14 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.create(uid: 999999999999999, gender: true)
+
+Topic.create(topic_name: "주제1")
+Topic.create(topic_name: "주제2")
+Topic.create(topic_name: "주제3")
+Topic.create(topic_name: "주제4")
+Topic.create(topic_name: "주제5")
+Topic.create(topic_name: "주제6")
+Topic.create(topic_name: "주제7")
+Topic.create(topic_name: "주제8")
+Topic.create(topic_name: "주제9")
+Topic.create(topic_name: "주제10")

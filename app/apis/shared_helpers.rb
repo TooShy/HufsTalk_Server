@@ -26,7 +26,11 @@ module SharedHelpers extend Grape::API::Helpers
     session = Session.find_by_token(params[:token])
     if session
       @current_user = User.find(session.user_id)
-      yield
+      if @current_user.ban_count >= 3
+        _response($_failed,"밴 된 계정입니다. 관리자에게 문의하세요",401)
+      else
+        yield
+      end
     else
       _response($_failed,"유저를 찾을 수 없습니다",404)
     end

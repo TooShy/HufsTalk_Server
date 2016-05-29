@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :topics
   has_one :session
+  belongs_to :chat_session
 
   validates_uniqueness_of :uid
 

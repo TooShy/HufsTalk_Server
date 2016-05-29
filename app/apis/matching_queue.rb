@@ -33,9 +33,15 @@ class MatchingQueue
       if result_user
         @matching_queue.delete_at(result_index)
         new_channel = Digest::MD5.hexdigest(SecureRandom.uuid.to_s)
+        current_chat_session = ChatSession.new(channel_name: new_channel)
+        if current_chat_session.save
+          current_chat_session.filter_string = user.filter_string.concat(",").concat(result_user.filter_string).split(",").uniq.join(",")
+          current_chat_session.users << user
+          current_chat_session.users << result_user
 
-        pusher.trigger(user.session.token, 'matched',{channel_name: new_channel})
-        pusher.trigger(result_user.session.token, 'matched',{channel_name: new_channel})
+          pusher.trigger(user.session.token, 'matched',{channel_name: new_channel})
+          pusher.trigger(result_user.session.token, 'matched',{channel_name: new_channel})
+        end
       else
         self.add(user)
         return false
