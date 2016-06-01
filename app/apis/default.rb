@@ -1,7 +1,6 @@
 module Default
   $_success = 'success'
   $_failed = 'failed'
-
   extend ActiveSupport::Concern
   included do
     version 'v1'

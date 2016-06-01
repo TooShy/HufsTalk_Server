@@ -19,22 +19,26 @@ module V1
           requires :message, desc: "메시지 내용", type: String
         end
         post do
+          
           current_user do
+	    @pusher = pusher
             filter_string = @current_user.chat_session.filter_string.split(',')
-            filter_string.each do |s|
+            logger.info "asdfasdfasdfasdfsdf"
+	    filter_string.each do |s|
               if params[:message].include? s
                 @current_user.ban_count = @current_user.ban_count + 1
                 @current_user.save
                 @pusher.trigger(params[:channel], 'ban', {
-                    token: params[:token]
+                    token: params[:token],
+	  	    filter_string: filter_string
                 });
                 return _response($_failed,"금지어 입력" ,402)
               end
             end
-            @pusher = pusher
             @pusher.trigger(params[:channel], 'chat', {
                                                 message: params[:message],
-                                                token: params[:token]
+                                                token: params[:token],
+						chat_session: @current_user.chat_session
                                             });
 
             _response($_success,"메시지 트리거링 성공",200)

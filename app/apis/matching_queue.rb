@@ -34,8 +34,10 @@ class MatchingQueue
         @matching_queue.delete_at(result_index)
         new_channel = Digest::MD5.hexdigest(SecureRandom.uuid.to_s)
         current_chat_session = ChatSession.new(channel_name: new_channel)
+        filter_strings = [user.filter_string.dup,result_user.filter_string.dup]
+        current_chat_session.filter_string = filter_strings[0].concat(",").concat(filter_strings[1]).split(",").uniq.join(",")
+ 
         if current_chat_session.save
-          current_chat_session.filter_string = user.filter_string.concat(",").concat(result_user.filter_string).split(",").uniq.join(",")
           current_chat_session.users << user
           current_chat_session.users << result_user
 

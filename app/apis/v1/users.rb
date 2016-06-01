@@ -61,7 +61,7 @@ module V1
       end
       get :set_filter do
         current_user do
-          @current_user.filter_string = params[:filter_string]
+          @current_user.filter_string = params[:filter_string].gsub(' ','')
           if @current_user.save
             _response $_success,"금지어 설정 성공",200,{user:@current_user}
           end
