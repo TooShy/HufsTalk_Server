@@ -59,7 +59,7 @@ module V1
         requires :token, desc: "세션 토큰", type: String
         requires :filter_string, desc: "필터 문자열(split_by: ',')", type:String
       end
-      get :set_filter do
+      post :set_filter do
         current_user do
           @current_user.filter_string = params[:filter_string].gsub(' ','')
           if @current_user.save
